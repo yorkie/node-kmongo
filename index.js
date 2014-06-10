@@ -8,6 +8,7 @@ module.exports = function(name, options, app) {
   var mongo = null;
   var host = args.options.host || 'localhost';
   var port = args.options.port || 27017;
+
   co(function * () {
     mongo = yield createConnection(host, port, args.options);
     args.app.emit('ready');
