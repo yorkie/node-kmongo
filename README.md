@@ -4,7 +4,7 @@ kmongo [![Build Status](https://travis-ci.org/yorkie/node-kmongo.svg?branch=mast
 koa-mongo: use [node-mongodb-native](https://github.com/mongodb/node-mongodb-native) in koajs togather with connection pool.
 
 ### Installation
-```sh
+```bash
 $ npm install kmongo --save
 ```
 
