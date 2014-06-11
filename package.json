@@ -1,6 +1,6 @@
 {
   "name": "kmongo",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "koa-mongo: use node-mongodb-native in koajs togather with connection pool.",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/yorkie/kmongo.git"
+    "url": "https://github.com/yorkie/node-kmongo.git"
   },
   "keywords": [
     "koa",
@@ -17,11 +17,14 @@
   "author": "Yorkie Neil <yorkiefixer@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/yorkie/kmongo/issues"
+    "url": "https://github.com/yorkie/node-kmongo/issues"
   },
-  "homepage": "https://github.com/yorkie/kmongo",
+  "homepage": "https://github.com/yorkie/node-kmongo",
   "dependencies": {
     "co": "^3.0.6",
     "mongodb": "^1.4.3"
+  },
+  "devDependencies": {
+    "tape": "^2.13.2"
   }
 }
