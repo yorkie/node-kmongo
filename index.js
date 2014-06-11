@@ -10,8 +10,12 @@ module.exports = function(name, options, app) {
   var port = args.options.port || 27017;
 
   co(function * () {
-    mongo = yield createConnection(host, port, args.options);
-    args.app.emit('ready');
+    try {
+      mongo = yield createConnection(host, port, args.options);
+      args.app.emit('ready');
+    } catch (err) {
+      args.app.emit('error', err);
+    }
   })();
   return function * (next) {
     if (!mongo) throw new Error('mongo init required');
@@ -46,12 +50,6 @@ function createConnection(host, port, options) {
   var server = new mongodb.Server(host, port, options.server);
   var client = new mongodb.MongoClient(server, options.client);
   return function(callback) {
-    client.open(function(err, client) {
-      if (err) {
-        return occurredDBError(client, err, callback);
-      } else {
-        return callback(null, client);
-      }
-    });
+    client.open(callback);
   };
 }

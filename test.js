@@ -10,4 +10,8 @@ test('simple test', function(t) {
     t.end();
     process.exit();
   });
+  app.once('error', function(err) {
+    t.end();
+    process.exit();
+  });
 });

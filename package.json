@@ -1,6 +1,6 @@
 {
   "name": "kmongo",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "koa-mongo: use node-mongodb-native in koajs togather with connection pool.",
   "main": "index.js",
   "scripts": {
