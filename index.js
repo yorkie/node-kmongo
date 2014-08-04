@@ -1,48 +1,37 @@
 
-var co = require('co');
 var mongodb = require('mongodb');
-var EE = require('events').EventEmitter;
 
-module.exports = function(name, options, app) {
-  var args = nomalizeArgs.apply(this, arguments);
-  var mongo = null;
-  var host = args.options.host || 'localhost';
-  var port = args.options.port || 27017;
-
-  co(function * () {
-    try {
-      mongo = yield createConnection(host, port, args.options);
-      args.app.emit('ready');
-    } catch (err) {
-      args.app.emit('error', err);
-    }
-  })();
-  return function * (next) {
-    if (!mongo) throw new Error('mongo init required');
-    this[args.name || 'mongo'] = mongo;
-    yield next;
-  };
-}
-
-function nomalizeArgs() {
-  var ret = {
-    name: 'mongo',
-    options: {},
-    app: null
-  };
-  for (var i=0; i<arguments.length; i++) {
-    var item = arguments[i];
-    switch (typeof item) {
-      case 'string': ret.name = item; break;
-      case 'object':
-        if (item instanceof EE)
-          ret.app = item;
-        else
-          ret.options = item;
-        break;
+module.exports = function(name, options) {
+  if (!name) {
+    name = 'mongo';
+    options = {
+      host: 'localhost',
+      port: 27017
     };
   }
-  return ret;
+  if (typeof name == 'object') {
+    options = name;
+    name = 'mongo';
+  }
+  options = options || {};
+  var mongo = null;
+  var host = options.host || 'localhost';
+  var port = options.port || 27017;
+
+  return function* (next) {
+    if (this[name]) return yield next;
+
+    try {
+      mongo = yield createConnection(host, port, options);
+      this.app.emit('ready');
+    } catch (err) {
+      this.app.emit('error', err);
+    }
+
+    if (!mongo) throw new Error('mongo init required');
+    this[name] = mongo;
+    yield next;
+  };
 }
 
 function createConnection(host, port, options) {
