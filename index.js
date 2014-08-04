@@ -12,9 +12,13 @@ module.exports = function(name, options, app) {
   co(function * () {
     try {
       mongo = yield createConnection(host, port, args.options);
-      args.app.emit('ready');
+      if (args.app instanceof EE)
+        args.app.emit('ready');
     } catch (err) {
-      args.app.emit('error', err);
+      if (args.app instanceof EE)
+        args.app.emit('error', err);
+      else
+        mongo = null;
     }
   })();
   return function * (next) {

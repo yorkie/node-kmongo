@@ -10,13 +10,13 @@ $ npm install kmongo --save
 
 ### API
 
-##### kmongo([name, ]option, context)
+##### kmongo([name, option, context])
 
 * `name`: the field name in your koa `ctx` variable
 
 * `option`: the mongo options, see this [doc](https://github.com/mongodb/node-mongodb-native/blob/master/docs/articles/MongoClient.md) for more details.
 
-* `context`: required, you MUST set your app to this argument.
+* `context`: if you wanna use `ready` event, then pass a trigger here, best value is your `app`.
 
 ### Usage
 
