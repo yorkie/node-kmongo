@@ -51,7 +51,7 @@ this.getUser = function * () {
 If you don't like the `ready` trigger, then you just handle an error in the common event `error` like following:
 
 ```js
-app.use(kmongo('mongo', opt, app));
+app.use(kmongo('mongo', opt));
 app.on('error', function(err) {
   console.log(err);
   // here we could handle mongodb error
