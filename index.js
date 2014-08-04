@@ -22,7 +22,8 @@ module.exports = function(name, options, app) {
     }
   })();
   return function * (next) {
-    if (!mongo) throw new Error('mongo init required');
+    if (!mongo) 
+      throw new Error('mongo init required');
     this[args.name || 'mongo'] = mongo;
     yield next;
   };
