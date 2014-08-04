@@ -10,13 +10,11 @@ $ npm install kmongo --save
 
 ### API
 
-##### kmongo([name, ]option, context)
+##### kmongo(name, option)
 
-* `name`: the field name in your koa `ctx` variable
+* `name`: optional. the field name in your koa `ctx` variable
 
-* `option`: the mongo options, see this [doc](https://github.com/mongodb/node-mongodb-native/blob/master/docs/articles/MongoClient.md) for more details.
-
-* `context`: required, you MUST set your app to this argument.
+* `option`: optional. the mongo options, see this [doc](https://github.com/mongodb/node-mongodb-native/blob/master/docs/articles/MongoClient.md) for more details.
 
 ### Usage
 
@@ -33,11 +31,13 @@ var opt = {
   }
 };
 
-app.use(kmongo('mongo', opt, app));
+app.use(kmongo('mongo', opt));
 app.once('ready', function() {
   // connection created
-  app.listen(80);
+  console.log('mongo connected')
 });
+app.listen(3000);
+
 ```
 
 use it in your router generator function
@@ -51,12 +51,12 @@ this.getUser = function * () {
 If you don't like the `ready` trigger, then you just handle an error in the common event `error` like following:
 
 ```js
-app.use(kmongo('mongo', opt, app));
+app.use(kmongo('mongo', opt));
 app.on('error', function(err) {
   console.log(err);
   // here we could handle mongodb error
 });
-app.listen(80);
+app.listen(3000);
 ```
 
 ### License
